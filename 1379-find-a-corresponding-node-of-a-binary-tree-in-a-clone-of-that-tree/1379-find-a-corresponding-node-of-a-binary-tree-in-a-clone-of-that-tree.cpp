@@ -10,10 +10,8 @@
 
 class Solution {
 public:
-    
     TreeNode* getTargetCopy(TreeNode* original, TreeNode* cloned, TreeNode* target) {
-        
-        if(target==NULL)
+           if(target==NULL)
             return NULL;
         
         queue<TreeNode*> pq;
