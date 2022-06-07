@@ -99,43 +99,34 @@ class Solution{
   public:
     // root : the root Node of the given BST
     // target : the target sum
-    void mapp(Node* root,unordered_map<int,int> &m)
+    unordered_map<int,int> m;
+    void dfs(Node* root)
     {
         if(root==NULL)
         return;
         
         m[root->data]++;
         
-        mapp(root->left,m);
-        mapp(root->right,m);
+        dfs(root->left);
+        dfs(root->right);
     }
     
     int isPairPresent(struct Node *root, int target)
     {
     //add code here.
-    unordered_map<int,int> m;
-    mapp(root,m);
-    int count=0;
-    
+    dfs(root);
     for(auto x:m)
-{
-    int y=target-x.first;
-    if(y==x.first)
     {
-        count+=x.second/2;
-        m.erase(y);
-        continue;
+        int y=target-x.first;
+        
+        if(y==x.first&&m[y]>1)
+        return 1;
+        
+        if(m.find(y)!=m.end())
+        return 1;
     }
     
-    if(m.find(y)!=m.end())
-    {
-        count+=max(m[x.first],m[y]);
-        m.erase(x.first);
-        m.erase(y);
-    }
-}
-    
-    return count;
+    return 0;
     }
 };
 
