@@ -137,7 +137,7 @@ void inorder(Node *root)
 class Solution
 {
     public:
-    //Function to connect nodes at same level.
+    //Function to connect nodes at same level
     void connect(Node *root)
     {
        // Your Code Here
@@ -147,17 +147,17 @@ class Solution
        
        while(!pq.empty())
        {
-           Node* node=pq.front().first;
+           Node* head=pq.front().first;
            int hdis=pq.front().second;
            pq.pop();
            
-           m[hdis].push_back(node);
+           m[hdis].push_back(head);
            
-           if(node->left)
-           pq.push({node->left,hdis+1});
+           if(head->left)
+           pq.push({head->left,hdis+1});
            
-           if(node->right)
-           pq.push({node->right,hdis+1});
+           if(head->right)
+           pq.push({head->right,hdis+1});
        }
        
        for(auto x:m)
