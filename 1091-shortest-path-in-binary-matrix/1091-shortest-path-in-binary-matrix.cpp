@@ -1,56 +1,55 @@
 class Solution {
 public:
-    bool inbound(int i ,int j,int r,int c)
+    bool inbound(int i,int j,int n,int m)
     {
-        return (i>=0&&i<r&&j>=0&&j<c);
+        return (i>=0&&i<n&&j>=0&&j<m);
     }
     
     int shortestPathBinaryMatrix(vector<vector<int>>& grid) {
         
-        int r=grid.size();
-        int c=grid[0].size();
+        int n=grid.size();
+        int m=grid[0].size();
         
         if(grid[0][0]==1)
             return -1;
         
-        vector<vector<bool>> vis(r,vector<bool> (c,false));
+        vector<vector<int>> dist(n,vector<int> (m,INT_MAX));
         
-        queue<pair<pair<int,int>,int>> pq;
-        pq.push({{0,0},1});
+        dist[0][0]=1;
+        queue<pair<int,int>> pq;
+        pq.push({0,0});
+        int ans=INT_MAX;
         
-        
-        vector<int> dx={1,1,1,0,0,-1,-1,-1};
+         vector<int> dx={1,1,1,0,0,-1,-1,-1};
         vector<int> dy={1,0,-1,1,-1,1,0,-1};
         
-        
-        int ans=INT_MIN;
-        vis[0][0]=true;
         while(!pq.empty())
         {
-            pair<int,int> q=pq.front().first;
-            int val=pq.front().second;
-            int i=q.first;
-            int j=q.second;
+            int x=pq.front().first;
+            int y=pq.front().second;
             pq.pop();
             
-            if(i==r-1&&j==c-1)
-                ans=max(ans,val);
+            if(x==n-1&&y==m-1)
+                ans=min(ans,dist[x][y]);
+        
             
-            for(int z=0;z<8;z++)
+            for(int i=0;i<8;i++)
             {
-                int cx=i+dx[z];
-                int cy=j+dy[z];
+                int cx=x+dx[i];
+                int cy=y+dy[i];
                 
-                if(inbound(cx,cy,r,c)&&grid[cx][cy]==0&&!vis[cx][cy])
-                {pq.push({{cx,cy},val+1});
-            vis[cx][cy]=true;
+                
+                if(inbound(cx,cy,n,m)&&dist[cx][cy]==INT_MAX&&grid[cx][cy]==0)
+                {
+                    pq.push({cx,cy});
+                    dist[cx][cy]=dist[x][y]+1;
                 }
                 
             }
-                
+            
         }
         
-        if(ans==INT_MIN)
+        if(ans==INT_MAX)
             return -1;
         
         return ans;
