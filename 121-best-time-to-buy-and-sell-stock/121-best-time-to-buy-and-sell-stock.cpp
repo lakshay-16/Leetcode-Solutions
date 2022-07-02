@@ -1,9 +1,7 @@
 class Solution {
 public:
-    
-    
     int maxProfit(vector<int>& prices) {
-   
+        
         if(prices.size()==1)
             return 0;
         
