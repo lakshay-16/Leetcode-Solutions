@@ -98,7 +98,7 @@ class Solution
 {
   public:
     //Function to check if S is a subtree of tree T.
-    bool check(Node* t,Node* s)
+    bool same(Node* t,Node* s)
     {
         if(t==NULL&&s==NULL)
         return true;
@@ -106,7 +106,7 @@ class Solution
         if(t==NULL||s==NULL)
         return false;
         
-        return (t->data==s->data)&&check(t->left,s->left)&&check(t->right,s->right);
+        return (t->data==s->data)&&same(t->left,s->left)&&same(t->right,s->right);
     }
     
     bool isSubTree(Node* T, Node* S) 
@@ -118,7 +118,7 @@ class Solution
         if(T==NULL)
         return false;
         
-        if(check(T,S))
+        if(same(T,S))
         return true;
         
         return isSubTree(T->left,S)||isSubTree(T->right,S);
