@@ -1,19 +1,27 @@
 class Solution {
 public:
-    void dfs(vector<vector<int>> &grid,int i,int j,int color,int scolor)
+    void dfs(int i,int j,vector<vector<int>> &grid,int c,int sc)
     {
-        if(i<0||j<0||i>=grid.size()||j>=grid[0].size()||grid[i][j]!=scolor||grid[i][j]==color)
+        if(i<0||i>=grid.size()||j<0||j>=grid[0].size())
             return;
         
-        grid[i][j]=color;
-        dfs(grid,i+1,j,color,scolor);
-          dfs(grid,i-1,j,color,scolor);
-          dfs(grid,i,j+1,color,scolor);
-          dfs(grid,i,j-1,color,scolor);
+        if(grid[i][j]!=sc)
+            return;
+        
+        if(grid[i][j]==c)
+            return;
+        
+        grid[i][j]=c;
+        
+        dfs(i+1,j,grid,c,sc);
+        dfs(i-1,j,grid,c,sc);
+        dfs(i,j-1,grid,c,sc);
+        dfs(i,j+1,grid,c,sc);
     }
     
     vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
-        dfs(image,sr,sc,color,image[sr][sc]);
+        
+        dfs(sr,sc,image,color,image[sr][sc]);
         return image;
     }
 };
