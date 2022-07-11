@@ -113,26 +113,24 @@ class Solution
     int singlevalued(Node *root)
     {
         //code here
-        if(root==NULL)
-        return 0;
-        
         int count=0;
         queue<Node*> pq;
-        
         pq.push(root);
+        
         while(!pq.empty())
         {
-            Node* x=pq.front();
+            Node* node=pq.front();
             pq.pop();
             
-            if(single(x,x->data))
+            if(single(node,node->data))
             count++;
             
-            if(x->left)
-            pq.push(x->left);
             
-            if(x->right)
-            pq.push(x->right);
+            if(node->left)
+            pq.push(node->left);
+            
+            if(node->right)
+            pq.push(node->right);
         }
         
         return count;
