@@ -86,31 +86,40 @@ class Solution{
     {
         // Your code here
         unordered_map<int,vector<int>> m;
+        Node* head;
         for(int i=0;i<N;i++)
-        m[parent[i]].push_back(i);
+        {
+            if(parent[i]==-1)
+            {
+                head=new Node(i);
+                continue;
+            }
+            
+            m[parent[i]].push_back(i);
+        }
         
-        Node* head=new Node(m[-1][0]);
         queue<Node*> pq;
-        pq.push(head);
+        Node* temp=head;
+        pq.push(temp);
         
         while(!pq.empty())
         {
-            Node* root=pq.front();
-            int val=root->data;
+            Node* node=pq.front();
+            int val=node->data;
             pq.pop();
             
             for(int i=0;i<m[val].size();i++)
             {
                 if(i==0)
                 {
-                root->left=new Node(m[val][0]);
-                pq.push(root->left);
+                node->left=new Node(m[val][0]);
+                pq.push(node->left);
                 }
                 
-                else
+                if(i==1)
                 {
-                    root->right=new Node(m[val][1]);
-                    pq.push(root->right);
+                 node->right=new Node(m[val][1]);
+                 pq.push(node->right);
                 }
             }
         }
