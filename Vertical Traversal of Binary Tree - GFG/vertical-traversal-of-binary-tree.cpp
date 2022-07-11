@@ -104,33 +104,31 @@ class Solution
     vector<int> verticalOrder(Node *root)
     {
         //Your code here
-        queue<pair<Node*,int>> pq;
-        map<int,vector<int>> m;
         vector<int> ans;
-        
+        map<int,vector<int>> m;
+        queue<pair<Node*,int>> pq;
         pq.push({root,0});
+        
         while(!pq.empty())
         {
             Node* head=pq.front().first;
-            int vdis=pq.front().second;
-            int val=head->data;
+            int hdis=pq.front().second;
             pq.pop();
             
-            m[vdis].push_back(val);
+            m[hdis].push_back(head->data);
             
             if(head->left)
-            pq.push({head->left,vdis-1});
+            pq.push({head->left,hdis-1});
             
             if(head->right)
-            pq.push({head->right,vdis+1});
+            pq.push({head->right,hdis+1});
         }
         
         for(auto x:m)
         {
-            for(auto y:x.second)
-            ans.push_back(y);
+            for(int i=0;i<x.second.size();i++)
+            ans.push_back(x.second[i]);
         }
-        
         
         return ans;
     }
