@@ -90,19 +90,16 @@ Node* buildTree(string str) {
 
 class Solution{
     public:
-    int ans=INT_MIN;
-    int count=0;
-    
-    void dfs(Node* root)
+    void solve(Node* root,int &count,int &ans)
     {
         if(root==NULL)
         return;
         
         count+=root->data;
-        ans=max(ans,count);
+        ans=max(count,ans);
         
-        dfs(root->left);
-        dfs(root->right);
+        solve(root->left,count,ans);
+        solve(root->right,count,ans);
         
         count-=root->data;
     }
@@ -110,7 +107,13 @@ class Solution{
     int maxPathSum(Node* root)
     {
         //code here
-        dfs(root);
+        if(root==NULL)
+        return 0;
+        
+        int ans=INT_MIN;
+        int count=0;
+        
+        solve(root,count,ans);
         return ans;
     }
 };
