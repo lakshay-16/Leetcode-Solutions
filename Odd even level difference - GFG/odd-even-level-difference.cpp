@@ -103,29 +103,31 @@ struct Node
 class Solution{
   public:
     /*You are required to complete this function*/
-    int odd=0;
-    int even=0;
-    
-    void mapp(Node* root,int hdis)
+    void mapp(Node* root,int &odd,int &even,int hdis)
     {
         if(root==NULL)
         return;
         
-        if(hdis%2!=0)
+        if(hdis%2==0)
         odd+=root->data;
         
-        else
+        if(hdis%2!=0)
         even+=root->data;
         
-        mapp(root->left,hdis+1);
-        mapp(root->right,hdis+1);
+        mapp(root->left,odd,even,hdis+1);
+        mapp(root->right,odd,even,hdis+1);
     }
     
     int getLevelDiff(Node *root)
     {
        //Your code here
-       mapp(root,1);
-       return odd-even;
+       int odd=0;
+       int even=0;
+       int hdis=0;
+       
+       mapp(root,odd,even,hdis);
+       
+       return (odd-even);
     }
 };
 
