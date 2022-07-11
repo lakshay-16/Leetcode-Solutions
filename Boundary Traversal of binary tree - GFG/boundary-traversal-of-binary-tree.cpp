@@ -105,78 +105,76 @@ struct Node
 
 class Solution {
 public:
-vector<int> l;
-vector<int> r;
-vector<int> leaves;
-
-void leftl(Node* root)
+void left(Node* root,vector<int> &g)
 {
     if(root==NULL)
     return;
     
     if(root->left)
-    {l.push_back(root->data);
-    leftl(root->left);
+    {
+        g.push_back(root->data);
+        left(root->left,g);
     }
+    
     else if(root->right)
     {
-        l.push_back(root->data);
-        leftl(root->right);
+      g.push_back(root->data);
+        left(root->right,g);   
     }
+    
 }
 
-void rightl(Node* root)
+void right(Node* root,vector<int> &g)
 {
     if(root==NULL)
     return;
     
     if(root->right)
     {
-        r.push_back(root->data);
-        rightl(root->right);
+        g.push_back(root->data);
+        right(root->right,g);
     }
     
     else if(root->left)
     {
-        r.push_back(root->data);
-        rightl(root->left);
+      g.push_back(root->data);
+        right(root->left,g);   
     }
+    
 }
 
-
-void leaf(Node* root)
+void leaves(Node* root,vector<int> &g)
 {
     if(root==NULL)
     return;
     
-     leaf(root->left);
+    leaves(root->left,g);
     
-    if(!root->left&&!root->right)
-    leaves.push_back(root->data);
+    if(root->left==NULL&&root->right==NULL)
+    g.push_back(root->data);
     
-    leaf(root->right);
+    leaves(root->right,g);
 }
 
     vector <int> boundary(Node *root)
     {
         //Your code here
         vector<int> ans;
+        vector<int> rev;
+        
+        if(root==NULL)
+        return ans;
+        
         ans.push_back(root->data);
         
-        leftl(root->left);
-        rightl(root->right);
-        leaf(root->left);
-        leaf(root->right);
+        left(root->left,ans);
+        leaves(root->left,ans);
+        leaves(root->right,ans);
+        right(root->right,rev);
         
-        reverse(r.begin(),r.end());
+        reverse(rev.begin(),rev.end());
         
-        for(auto x:l)
-        ans.push_back(x);
-        
-        for(auto x:leaves)
-        ans.push_back(x);
-        
-        for(auto x:r)
+        for(auto x:rev)
         ans.push_back(x);
         
         return ans;
