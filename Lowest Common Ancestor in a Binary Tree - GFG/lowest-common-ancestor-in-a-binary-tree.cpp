@@ -57,8 +57,8 @@ class Solution
     
     Node* lca(Node* root ,int n1 ,int n2 )
     {
-       //Your code here
-       vector<Node*> g1;
+       //Your code here 
+         vector<Node*> g1;
        vector<Node*> g2;
        
        if(!path(root,n1,g1)||!path(root,n2,g2))
