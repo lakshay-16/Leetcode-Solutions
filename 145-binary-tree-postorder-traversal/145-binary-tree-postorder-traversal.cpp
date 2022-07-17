@@ -11,20 +11,21 @@
  */
 class Solution {
 public:
-    void mapp(TreeNode* root,vector<int> &g)
+    void postorder(vector<int> &g,TreeNode* root)
     {
         if(root==NULL)
             return;
         
-       
-        mapp(root->left,g);
-        mapp(root->right,g);
-         g.push_back(root->val);
+        postorder(g,root->left);
+        postorder(g,root->right);
+        g.push_back(root->val);
     }
     
     vector<int> postorderTraversal(TreeNode* root) {
+        
         vector<int> g;
-        mapp(root,g);
+        postorder(g,root);
+        
         return g;
     }
 };
