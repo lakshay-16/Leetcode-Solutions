@@ -1,35 +1,41 @@
 class Solution {
 public:
-      void dfs(int i,int j,int &count,vector<vector<int>> &grid)
+    void solve(int i,int j,vector<vector<int>> &grid,int &count)
     {
         if(i<0||j<0||i>=grid.size()||j>=grid[0].size())
             return;
         
         if(grid[i][j]!=1)
             return;
-            
-        count++;
+        
         grid[i][j]=0;
-        dfs(i+1,j,count,grid);
-        dfs(i-1,j,count,grid);
-        dfs(i,j+1,count,grid);
-        dfs(i,j-1,count,grid);
+        count++;
+        
+        solve(i-1,j,grid,count);
+        solve(i+1,j,grid,count);
+        solve(i,j-1,grid,count);
+        solve(i,j+1,grid,count);
     }
+    
     int maxAreaOfIsland(vector<vector<int>>& grid) {
-           int ans=INT_MIN;
-        for(int i=0;i<grid.size();i++)
+        
+        int ans=0;
+        int n=grid.size();
+        int m=grid[0].size();
+        
+        for(int i=0;i<n;i++)
         {
-            for(int j=0;j<grid[0].size();j++)
+            for(int j=0;j<m;j++)
             {
                 if(grid[i][j]==1)
                 {
-                  int count=0;
-                    dfs(i,j,count,grid);
+                    int count=0;
+                    solve(i,j,grid,count);
                     ans=max(ans,count);
                 }
             }
         }
         
-        return (ans==INT_MIN)?0:ans;
+        return ans;
     }
 };
