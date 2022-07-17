@@ -11,19 +11,20 @@
  */
 class Solution {
 public:
-    void mapp(TreeNode* root,vector<int> &g)
+    void preorder(vector<int> &g,TreeNode* root)
     {
         if(root==NULL)
             return;
         
         g.push_back(root->val);
-        mapp(root->left,g);
-        mapp(root->right,g);
+        preorder(g,root->left);
+        preorder(g,root->right);
     }
     
     vector<int> preorderTraversal(TreeNode* root) {
+        
         vector<int> g;
-        mapp(root,g);
+        preorder(g,root);
         
         return g;
     }
