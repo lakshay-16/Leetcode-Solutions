@@ -9,73 +9,51 @@
  * };
  */
 class Solution {
-public:
+public:    
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-          ListNode* rf=l1;
-        ListNode* rs=l2;
+        ListNode* g=new ListNode(-1);
+        ListNode* ans=g;
         
-        ListNode* ans=new ListNode(-1);
-        ListNode* r=ans;
-        int sum=0;
+        ListNode* r1=l1;
+        ListNode* r2=l2;
+        
         int carry=0;
-        while(rf!=NULL&&rs!=NULL)
+        
+        while(r1&&r2)
         {
-            
-         sum=rf->val+rs->val;   
-            int node=(sum+carry)%10;
-            ans->next=new ListNode(node);
-            ans=ans->next;
-            
-            if(sum+carry>9)
-            carry=(sum+carry)/10;
-            
-            else
-            carry=0;
-            
-            rf=rf->next;
-            rs=rs->next;
+            int sum=r1->val+r2->val+carry;
+            carry=sum/10;
+            int rem=sum%10;
+            g->next=new ListNode(rem);
+            r1=r1->next;
+            r2=r2->next;
+            g=g->next;
         }
         
-        if(rs==NULL&&rf==NULL&&carry>0)
-        ans->next=new ListNode(carry);
+        while(r1)
+        {
+            int sum=r1->val+carry;
+            carry=sum/10;
+           int rem=sum%10;
+            g->next=new ListNode(rem);
+            r1=r1->next;
+            g=g->next;
+        }
+        
+         while(r2)
+        {
+            int sum=r2->val+carry;
+            carry=sum/10;
+            int rem=sum%10;
+            g->next=new ListNode(rem);
+            r2=r2->next;
+            g=g->next;
+        }
+        
+        if(carry>0)
+            g->next=new ListNode(carry);
         
         
-       if(rs==NULL&&rf!=NULL)
-       {
-          while(carry>0&&rf!=NULL)
-          {
-           ans->next=new ListNode((rf->val+carry)%10);
-           carry=(rf->val+carry)/10;
-           ans=ans->next;
-           rf=rf->next;
-          }
-       
-       if(carry>0&&rf==NULL)
-       ans->next=new ListNode(carry);
-       
-       else
-       ans->next=rf;
-       }
-       
-       if(rf==NULL&&rs!=NULL)
-       {
-             while(carry>0&&rs!=NULL)
-          {
-           ans->next=new ListNode((rs->val+carry)%10);
-           carry=(rs->val+carry)/10;
-           ans=ans->next;
-           rs=rs->next;
-          }
-       
-       if(rs==NULL&&carry>0)
-       ans->next=new ListNode(carry);
-       
-       else
-       ans->next=rs;
-       }
-        
-      
-        
-        return r->next;
+        return ans->next;
     }
 };
