@@ -11,20 +11,19 @@
  */
 class Solution {
 public:
-    bool same(TreeNode* root1,TreeNode* root2)
+    bool solve(TreeNode* root,TreeNode* root1)
     {
-        if(root1==NULL&&root2==NULL)
+        if(!root&&!root1)
             return true;
         
-        if(root1==NULL||root2==NULL)
+        if(!root||!root1)
             return false;
         
-        
-        return (root1->val==root2->val)&&same(root1->left,root2->right)&&same(root1->right,root2->left);
+        return (root->val==root1->val)&&solve(root->left,root1->right)&&solve(root->right,root1->left);
     }
     
     bool isSymmetric(TreeNode* root) {
         
-        return same(root,root);
+        return solve(root,root);
     }
 };
