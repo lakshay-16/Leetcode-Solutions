@@ -1,43 +1,45 @@
 class Solution {
 public:
-    string longestPalindrome(string str) {
-      
-          string ans="";
-        int ml=1;
-        int start=0;
-        int len;
+    string longestPalindrome(string s) {
         
-        for(int i=0;i<str.length();i++)
+     string ans="";   
+     int maxl=1;
+     int len;
+        int start=0;
+        
+        for(int i=0;i<s.length();i++)
         {
             int low=i-1;
             int high=i+1;
             
-            while(high<str.length()&&str[i]==str[high])
-            high++;
+            while(high<s.length()&&s[i]==s[high])
+                high++;
             
-            while(low>=0&&str[i]==str[low])
-            low--;
+            while(low>=0&&s[i]==s[low])
+                low--;
             
-            while(low>=0&&high<str.length()&&str[low]==str[high])
+            
+            while(high<s.length()&&low>=0&&s[low]==s[high])
             {
                 low--;
                 high++;
             }
-            
+          
             len=high-low-1;
-            
-            if(len>ml)
+            if(len>maxl)
             {
-                ml=len;
+                maxl=len;
                 start=low+1;
             }
             
         }
         
-        for(int i=start;i<=start+ml-1;i++)
-        ans+=str[i];
+        
+        for(int i=start;i<start+maxl;i++)
+        {
+            ans+=s[i];
+        }
         
         return ans;
-      
     }
 };
