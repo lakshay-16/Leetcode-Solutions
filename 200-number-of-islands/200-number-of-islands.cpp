@@ -1,6 +1,6 @@
 class Solution {
 public:
-       void dfs(vector<vector<char>> &grid,int i,int j)
+      void dfs(vector<vector<char>> &grid,int i,int j)
     {
         if(i<0||j<0||i>=grid.size()||j>=grid[0].size())
             return;
@@ -15,7 +15,8 @@ public:
         dfs(grid,i,j-1);
     }
     int numIslands(vector<vector<char>>& grid) {
-          int ans=0;
+        
+        int ans=0;
         for(int i=0;i<grid.size();i++)
         {
             for(int j=0;j<grid[0].size();j++)
