@@ -11,30 +11,35 @@
  */
 class Solution {
 public:
-    void mapp(TreeNode* root,map<int,vector<int>> &m,int hdis)
-    {
-        if(root==NULL)
-            return;
-        
-        m[hdis].push_back(root->val);
-        
-        mapp(root->left,m,hdis+1);
-        mapp(root->right,m,hdis+1);
-    }
-    
     vector<double> averageOfLevels(TreeNode* root) {
-     map<int,vector<int>> m;
-        mapp(root,m,0);
-        vector<double> ans;
         
-        for(auto x:m)
+        if(root==NULL)
+            return {};
+        
+        vector<double> ans;
+        queue<TreeNode*> pq;
+        pq.push(root);
+        
+        while(!pq.empty())
         {
-        double y=0;
-            for(auto z:x.second)
-                y+=z;
+            double avg=0;
+            int n=pq.size();
             
-            y=y/x.second.size();
-            ans.push_back(y);
+            for(int i=0;i<n;i++)
+            {
+                TreeNode* node=pq.front();
+                    pq.pop();
+                avg+=node->val;
+                
+                if(node->left)
+                    pq.push(node->left);
+                
+                if(node->right)
+                    pq.push(node->right);
+            }
+            
+            avg=avg/n;
+            ans.push_back(avg);
         }
         
         return ans;
