@@ -10,30 +10,27 @@
  * };
  */
 class Solution {
-public: 
-    int count=0;
-    void dfs(TreeNode* root,int max)
+public:
+    void dfs(TreeNode* root,int &count,int maxi)
     {
         if(root==NULL)
             return;
         
-        int nmax=max;
+        if(root->val>=maxi)
+            count++;
         
-        if(root->val>=max)
-        {count++;
-        nmax=root->val;
-        }
-         
-        dfs(root->left,nmax);
-        dfs(root->right,nmax);
+     
+        int p=max(root->val,maxi);
+        
+        dfs(root->left,count,p);
+        dfs(root->right,count,p);
     }
     
     int goodNodes(TreeNode* root) {
+        if(root==NULL)return 0;
+        int count=0;
         
-        if(root==NULL)
-            return 0;
-        
-       dfs(root,INT_MIN);
+        dfs(root,count,INT_MIN);
         return count;
     }
 };
