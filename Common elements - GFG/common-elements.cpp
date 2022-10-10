@@ -1,49 +1,56 @@
-// { Driver Code Starts
+//{ Driver Code Starts
 #include <bits/stdc++.h>
 using namespace std;
 
 
- // } Driver Code Ends
+// } Driver Code Ends
 class Solution
 {
     public:    
+       bool binary(int i,int e,int arr[],int key)
+       {
+           int mid;
+           
+           while(i<=e)
+           {
+             mid=i+(e-i)/2;
+             
+             if(arr[mid]==key)
+             return true;
+             
+             if(arr[mid]>key)
+             e=mid-1;
+             
+             else
+             i=mid+1;
+           }
+           
+           return false;
+       }
+    
        vector <int> commonElements (int A[], int B[], int C[], int n1, int n2, int n3)
         {
             //code here.
-            unordered_map<int,int> m1;
-            unordered_map<int,int> m2;
-            unordered_map<int,int> m3;
             vector<int> ans;
-            
-            for(int i=0;i<n1;i++)
-            m1[A[i]]++;
-            
-            for(int i=0;i<n2;i++)
-            m2[B[i]]++;
-            
-            for(int i=0;i<n3;i++)
-            m3[C[i]]++;
-            
-            
+            set<int> st;
             for(int i=0;i<n1;i++)
             {
-                if(m1[A[i]]>0&&m2[A[i]]>0&&m3[A[i]]>0)
-                {
-                    ans.push_back(A[i]);
-                   m1.erase(A[i]);
-                   m2.erase(A[i]);
-                   m3.erase(A[i]);
-                }
+                bool a=binary(0,n2-1,B,A[i]);
+                bool b=binary(0,n3-1,C,A[i]);
+                
+                if(a&&b)
+                st.insert(A[i]);
             }
             
-            
+            for(auto x:st)
+            ans.push_back(x);
             
             return ans;
         }
 
 };
 
-// { Driver Code Starts.
+//{ Driver Code Starts.
 
 int main ()
 {
@@ -69,4 +76,5 @@ int main ()
             cout << res[i] << " "; 
         cout << endl;
     }
-}  // } Driver Code Ends
+}
+// } Driver Code Ends
