@@ -1,31 +1,33 @@
-// { Driver Code Starts
+//{ Driver Code Starts
 #include <iostream>
 #include <bits/stdc++.h>
 using namespace std;
  
 
- // } Driver Code Ends
-
+// } Driver Code Ends
 class Solution{
     public:
     int firstNonRepeating(int arr[], int n) 
     { 
         // Complete the function
+        queue<int> pq;
         unordered_map<int,int> m;
         for(int i=0;i<n;i++)
-        m[arr[i]]++;
+        {
+            pq.push(arr[i]);
+            m[arr[i]]++;
+        }
         
-        for(int i=0;i<n;i++)
-        if(m[arr[i]]==1)
-        return arr[i];
+        while(!pq.empty()&&m[pq.front()]>1)
+        pq.pop();
         
-        return -1;
+        return (pq.empty())?0:pq.front();
     } 
   
 };
 
 
-// { Driver Code Starts.
+//{ Driver Code Starts.
 
 int main()
 {
@@ -45,4 +47,5 @@ int main()
         cout<<ob.firstNonRepeating(arr,n)<<endl;
     }
 }
-  // } Driver Code Ends
+
+// } Driver Code Ends
