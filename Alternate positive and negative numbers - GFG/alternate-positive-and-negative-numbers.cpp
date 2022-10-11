@@ -1,15 +1,16 @@
-// { Driver Code Starts
+//{ Driver Code Starts
 #include <bits/stdc++.h>
 
 using namespace std;
 
- // } Driver Code Ends
+// } Driver Code Ends
 //User function template for C++
 class Solution{
 public:
 
 	void rearrange(int arr[], int n) {
 	    // code here
+	    
 	    vector<int> pos;
 	    vector<int> neg;
 	    
@@ -22,25 +23,42 @@ public:
 	        neg.push_back(arr[i]);
 	    }
 	    
-	    int i=0;
-	    int j=0;
-	    int index=0;
-	    
-	    while(i<pos.size()&&j<neg.size())
+	    int i=0,j=0,k=0;
+	    while(j<pos.size()&&k<neg.size())
 	    {
-	        arr[index++]=pos[i++];
-	        arr[index++]=neg[j++];
+	        if(i%2==0)
+	        {
+	            arr[i]=pos[j];
+	            i++;
+	            j++;
+	        }
+	        
+	        else
+	        {
+	            arr[i]=neg[k];
+	            i++;
+	            k++;
+	        }
 	    }
 	    
-	    while(i<pos.size())
-	    arr[index++]=pos[i++];
+	    while(j<pos.size())
+	    {
+	        arr[i]=pos[j];
+	        i++;
+	        j++;
+	    }
 	    
-	    while(j<neg.size())
-	    arr[index++]=neg[j++];
+	    while(k<neg.size())
+	    {
+	        arr[i]=neg[k];
+	        i++;
+	        k++;
+	    }
+	    
 	}
 };
 
-// { Driver Code Starts.
+//{ Driver Code Starts.
 
 int main() {
     int t;
@@ -61,4 +79,5 @@ int main() {
     }
     return 0;
 }
-  // } Driver Code Ends
+
+// } Driver Code Ends
